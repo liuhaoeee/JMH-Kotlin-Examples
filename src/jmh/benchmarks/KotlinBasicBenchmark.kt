@@ -4,25 +4,31 @@ import org.openjdk.jmh.annotations.*
 import org.openjdk.jmh.runner.Runner
 import org.openjdk.jmh.runner.options.OptionsBuilder
 import org.openjdk.jmh.runner.options.TimeValue
+import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 /**
  * Created by tony on 2018-12-10.
  */
 @BenchmarkMode(Mode.AverageTime) // 基准测试的模式，采用整体吞吐量的模式
-@OutputTimeUnit(TimeUnit.MILLISECONDS) // 基准测试结果的时间类型
+@OutputTimeUnit(TimeUnit.MICROSECONDS) // 基准测试结果的时间类型
 @State(Scope.Thread)
 open class KotlinBasicBenchmark {
 
     @Benchmark
-    fun testSequence():Unit {
-
+    fun doubleEqual() {
+        val b = "0.00".toDouble() == 0.0
 
     }
 
     @Benchmark
-    fun testList():Unit {
+    fun doubleCompare() {
+        val b = "0.00".toDouble().compareTo(0) == 0
+    }
 
+    @Benchmark
+    fun double2BigDecialCompare() {
+        val b = BigDecimal("0.00".toDouble()).compareTo(BigDecimal.ZERO) == 0
     }
 
     companion object {
